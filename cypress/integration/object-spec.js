@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { really } from '../../src'
+import { really, its } from '../../src'
 
 describe('Assertion helpers', () => {
   it('works with object props', () => {
@@ -15,6 +15,6 @@ describe('Assertion helpers', () => {
     }, 1000)
     cy.wrap(p).should(really(its('person.age'), 'equal', 90))
     // using custom ".map" child command
-    cy.wrap(p).map('person.age').should('eq', 90)
+    // cy.wrap(p).map('person.age').should('eq', 90)
   })
 })
