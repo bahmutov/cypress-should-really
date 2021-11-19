@@ -1,4 +1,4 @@
-# cypress-should-really
+# cypress-should-really ![cypress version](https://img.shields.io/badge/cypress-9.0.0-brightgreen)
 
 ## See also
 
