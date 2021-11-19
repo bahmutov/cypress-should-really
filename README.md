@@ -1,4 +1,4 @@
-# cypress-should-really ![cypress version](https://img.shields.io/badge/cypress-9.0.0-brightgreen)
+# cypress-should-really [![ci](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml) ![cypress version](https://img.shields.io/badge/cypress-9.0.0-brightgreen)
 
 ## See also
 
