@@ -1,0 +1,7 @@
+{
+  "fixturesFolder": false,
+  "supportFile": false,
+  "pluginsFile": false,
+  "viewportHeight": 1100,
+  "testFiles": "**/*spec.js"
+}

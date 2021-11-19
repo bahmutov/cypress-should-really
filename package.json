@@ -1,0 +1,30 @@
+{
+  "name": "cypress-should-really",
+  "version": "1.0.0",
+  "description": "Functional helpers for constructing Cypress should callbacks",
+  "main": "src",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/cypress-should-really.git"
+  },
+  "keywords": [
+    "cypress-plugin"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahmutov/cypress-should-really/issues"
+  },
+  "homepage": "https://github.com/bahmutov/cypress-should-really#readme",
+  "devDependencies": {
+    "chai-sorted": "^0.2.0",
+    "cypress": "^9.0.0",
+    "prettier": "^2.4.1"
+  }
+}
