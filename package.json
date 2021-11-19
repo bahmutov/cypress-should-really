@@ -1,17 +1,18 @@
 {
   "name": "cypress-should-really",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Functional helpers for constructing Cypress should callbacks",
   "main": "src",
   "files": [
     "src"
   ],
   "scripts": {
-    "test": "cypress run"
+    "test": "cypress run",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bahmutov/cypress-should-really.git"
+    "url": "https://github.com/bahmutov/cypress-should-really.git"
   },
   "keywords": [
     "cypress-plugin"
@@ -25,6 +26,7 @@
   "devDependencies": {
     "chai-sorted": "^0.2.0",
     "cypress": "^9.0.0",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "semantic-release": "^18.0.0"
   }
 }
