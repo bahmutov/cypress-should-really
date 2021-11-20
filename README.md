@@ -1,5 +1,7 @@
 # cypress-should-really [![ci](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml) ![cypress version](https://img.shields.io/badge/cypress-9.0.0-brightgreen)
 
+Read the blog post [Functional Helpers For Cypress Tests](https://glebbahmutov.com/blog/fp-cy-helpers/).
+
 ## See also
 
 - [cypress-recurse](https://github.com/bahmutov/cypress-recurse)
