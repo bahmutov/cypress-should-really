@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/bahmutov/cypress-should-really#readme",
   "devDependencies": {
-    "chai-sorted": "^0.2.0",
-    "cypress": "^9.0.0",
-    "prettier": "^2.4.1",
-    "semantic-release": "^18.0.0"
+    "chai-sorted": "0.2.0",
+    "cypress": "9.0.0",
+    "prettier": "2.4.1",
+    "semantic-release": "18.0.0"
   }
 }
