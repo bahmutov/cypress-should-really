@@ -2,6 +2,65 @@
 
 Read the blog post [Functional Helpers For Cypress Tests](https://glebbahmutov.com/blog/fp-cy-helpers/).
 
+## Example
+
+Grab text from each list item, convert the strings into Dates, convert Dates into timestamps, then confirm they are sorted using [chai-sorted](https://www.chaijs.com/plugins/chai-sorted/) assertion.
+
+```js
+import {innerText, toDate, invoke} from 'cypress-should-really'
+cy.get('.dates')
+  .then(map('innerText'))
+  .then(map(toDate))
+  .then(invoke('getDate'))
+  .should('be.sorted')
+```
+
+The above separates each operation using [cy.then](https://on.cypress.io/then) commands, which are not retried. Luckily, we can easily combine the individual steps into a single data transformation function using the `pipe` command.
+
+```js
+import {innerText, toDate, invoke, pipe} from 'cypress-should-really'
+const transform = pipe(map('innerText'), map(toDate), invoke('getDate'))
+cy.get('.dates')
+  .then(transform)
+  .should('be.sorted')
+```
+
+The above commands are still NOT retrying the first `cy.get` command, thus if the page changes, the assertion still fails since it never "sees" the changed elements. We need to remove the `.then(transform)` step and directly tie the `cy.get` command to the assertion. We can move the data transformation into the assertion callback that transforms the data AND runs the assertion using `really` function.
+
+```js
+import {innerText, toDate, invoke, pipe, really} from 'cypress-should-really'
+const transform = pipe(map('innerText'), map(toDate), invoke('getDate'))
+cy.get('.dates')
+  .should(really(transform, 'be.sorted'))
+```
+
+Finally, we can skip using the `pipe` function, since it is built into the `really` automatically. All functions before the assertion are applied and then the assertion runs.
+
+```js
+import {innerText, toDate, invoke, really} from 'cypress-should-really'
+cy.get('.dates')
+  .should(
+    really(map('innerText'), map(toDate), invoke('getDate'), 'be.sorted')
+  )
+```
+
+## Installation
+
+```text
+$ npm i -D cypress-should-really
+# or install using Yarn
+$ yarn add -D cypress-should-really
+```
+
+## API
+
+- `map`
+- `invoke`
+- `toDate`
+- `its`
+- `pipe`
+- `really`
+
 ## See also
 
 - [cypress-recurse](https://github.com/bahmutov/cypress-recurse)

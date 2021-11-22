@@ -35,10 +35,14 @@ function pipe(...fns) {
   }
 }
 
+/**
+ * Transforms an object or a list of objects using the supplied function or name of the property.
+ * @param {Function} fn Function to apply to each object
+ * @returns {Object|Array} Transformed value
+ * @example cy.get('.todo').then(map('innerText'))
+ */
 function map(fn) {
   return function (list) {
-    // console.log('mapping list', list)
-    debugger
     if (Cypress._.isArrayLike(list)) {
       return Cypress._.map(list, fn)
     } else {
@@ -47,6 +51,17 @@ function map(fn) {
   }
 }
 
+/**
+ * Invokes the given name (with optional arguments) on the given object.
+ * @param {String} methodName
+ * @param  {...any} args
+ * @returns Result of the method invocation
+ * @example
+ *  cy.get('dates')
+ *    .then(map('innerText'))
+ *    .then(toDate)
+ *    .then(invoke('getTime'))
+ */
 function invoke(methodName, ...args) {
   return function (list) {
     if (Cypress._.isArrayLike(list)) {
@@ -57,12 +72,24 @@ function invoke(methodName, ...args) {
   }
 }
 
+/**
+ * Grabs a property or a nested path from the given object.
+ * @param {String} path
+ * @returns Value of the property
+ * @example
+ *  cy.wrap({ foo: 'bar' }).then(its('foo'))
+ */
 function its(path) {
   return function (o) {
     return Cypress._.property(path)(o)
   }
 }
 
+/**
+ * Converts the given string into a JavaScript Date object
+ * @param {String} s dateString
+ * @returns {Date} Date instance
+ */
 function toDate(s) {
   return new Date(s)
 }
