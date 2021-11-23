@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "test": "cypress run",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "stop-only": "stop-only --folder cypress/integration"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "chai-sorted": "0.2.0",
     "cypress": "9.0.0",
     "prettier": "2.4.1",
-    "semantic-release": "18.0.0"
+    "semantic-release": "18.0.0",
+    "stop-only": "^3.1.2"
   }
 }
