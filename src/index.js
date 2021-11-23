@@ -44,7 +44,8 @@ function pipe(...fns) {
 function map(fn) {
   return function (list) {
     if (Cypress._.isArrayLike(list)) {
-      return Cypress._.map(list, fn)
+      const callbackFn = typeof fn === 'function' ? (x) => fn(x) : fn
+      return Cypress._.map(list, callbackFn)
     } else {
       return fn(list)
     }
@@ -64,10 +65,20 @@ function map(fn) {
  */
 function invoke(methodName, ...args) {
   return function (list) {
+    if (arguments.length > 1) {
+      // the user tried to pass extra arguments with the list/object
+      // that is a mistake!
+      throw new Error(`Call to "${methodName}" must have a single argument`)
+    }
+
+    if (typeof list[methodName] === 'function') {
+      return list[methodName](...args)
+    }
+
     if (Cypress._.isArrayLike(list)) {
-      return Cypress._.invokeMap(list, methodName, args)
+      return Cypress._.invokeMap(list, methodName, ...args)
     } else {
-      return Cypress._.invoke(list, methodName, args)
+      return Cypress._.invoke(list, methodName, ...args)
     }
   }
 }

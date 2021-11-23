@@ -61,6 +61,22 @@ $ yarn add -D cypress-should-really
 - `pipe`
 - `really`
 
+## invoke
+
+`invoke(<method name>, ...arguments)` returns a function that waits for an object or an array, then calls the method and returns the results
+
+```js
+const calc = {
+  add(a, b) {
+    return a + b
+  },
+}
+invoke('add', 1, 2)(calc)
+// 3
+```
+
+See [invoke-spec.js](./cypress/integration/invoke-spec.js)
+
 ## See also
 
 - [cypress-recurse](https://github.com/bahmutov/cypress-recurse)

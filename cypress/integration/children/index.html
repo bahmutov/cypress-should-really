@@ -1,0 +1,17 @@
+<body>
+  <p>Entire parent element is overwritten</p>
+  <div id="main">
+    <div data-cy="parent">Parent...</div>
+  </div>
+  <script>
+    const main = document.querySelector('#main')
+    setTimeout(() => {
+      main.innerHTML = `
+        <div data-cy="parent">
+          <div data-cy="first">First</div>
+          <div data-cy="second">Second</div>
+        </div>
+      `
+    }, 1000)
+  </script>
+</body>
