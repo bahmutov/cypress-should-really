@@ -27,7 +27,7 @@
   "devDependencies": {
     "chai-sorted": "0.2.0",
     "cypress": "9.1.0",
-    "prettier": "2.4.1",
+    "prettier": "2.5.0",
     "semantic-release": "18.0.1",
     "stop-only": "3.1.2"
   }
