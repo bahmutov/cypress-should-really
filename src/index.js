@@ -105,15 +105,19 @@ function toDate(s) {
   return new Date(s)
 }
 
-// function toDate() {
-//   return function (list) {
-//     if (Cypress._.isArrayLike(list)) {
-//       return Cypress._.map(list, toDateObject)
-//     } else {
-//       return toDateObject(list)
-//     }
-//   }
-// }
+/**
+ * Returns a function that waits for the argument, passes that argument
+ * to the given callback, but returns the original value. Useful
+ * for debugging data transformations.
+ * @param {Function} fn
+ * @example cyw.wrap(1).then(tap(console.log)).should('equal', 1)
+ */
+function tap(fn) {
+  return function (x) {
+    fn(x)
+    return x
+  }
+}
 
 module.exports = {
   really,
@@ -123,4 +127,5 @@ module.exports = {
   its,
   pipe,
   toDate,
+  tap,
 }

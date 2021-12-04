@@ -59,6 +59,7 @@ $ yarn add -D cypress-should-really
 - `toDate`
 - `its`
 - `pipe`
+- `tap`
 - `really`
 
 ## invoke
@@ -76,6 +77,26 @@ invoke('add', 1, 2)(calc)
 ```
 
 See [invoke-spec.js](./cypress/integration/invoke-spec.js)
+
+## tap
+
+Passes the argument into the given function, but returns the original argument. Useful for debugging pipes of functions - insert it in every place of the pipeline to see the values.
+
+```js
+const o = {
+  name: 'Joe',
+}
+cy.wrap(o)
+  .should(really(its('name'), tap(console.log), 'equal', 'Mary'))
+// change the name to Mary after some time
+setTimeout(() => {
+  o.name = 'Mary'
+}, 1000)
+```
+
+In the above example, the `console.log` the string "Joe" multiple times, before logging "Mary" once and passing the test.
+
+See [tap-spec.js](./cypress/integration/tap-spec.js)
 
 ## See also
 
