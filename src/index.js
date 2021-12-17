@@ -110,6 +110,20 @@ function greaterThan(n) {
 }
 
 /**
+ * Takes a function and returns a function that expects the first two
+ * arguments in the reverse order.
+ * @param {Function} fn Function to call
+ * @returns Function
+ * @example
+ *  flipTwoArguments(Cypress._.map)(x => x * 2, [1, 2, 3])
+ */
+function flipTwoArguments(fn) {
+  return function (a, b) {
+    return fn(b, a)
+  }
+}
+
+/**
  * Converts the given string into a JavaScript Date object
  * @param {String} s dateString
  * @returns {Date} Date instance
@@ -132,6 +146,19 @@ function tap(fn) {
   }
 }
 
+/**
+ * Returns a function with the first argument bound.
+ * @param {Function} fn Function to partially apply
+ * @param {any} a First argument to apply
+ * @example
+ *  const add = (a, b) => a + b
+ *  const addOne = partial(add, 1)
+ *  addOne(2) // 3
+ */
+function partial(fn, a) {
+  return fn.bind(null, a)
+}
+
 module.exports = {
   really,
   // utility functions
@@ -141,5 +168,7 @@ module.exports = {
   pipe,
   toDate,
   tap,
+  partial,
   greaterThan,
+  flipTwoArguments,
 }

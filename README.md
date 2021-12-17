@@ -55,6 +55,8 @@ $ yarn add -D cypress-should-really
 - `toDate`
 - `its`
 - `greaterThan`
+- `flipTwoArguments`
+- `partial`
 - `pipe`
 - `tap`
 - `really`

@@ -1,6 +1,15 @@
 /// <reference types="cypress" />
 
-import { really, invoke, map, tap, greaterThan, pipe } from '../../..'
+import {
+  really,
+  invoke,
+  map,
+  tap,
+  greaterThan,
+  partial,
+  pipe,
+  flipTwoArguments,
+} from '../../..'
 const { countBy, pickBy } = Cypress._
 
 describe(
@@ -13,7 +22,7 @@ describe(
       expect(output).to.be.deep.equal({ a: 2 })
     })
 
-    it('by attribute', () => {
+    it('by attribute (explicit)', () => {
       cy.visit('cypress/integration/duplicates/index.html')
 
       cy.get('li').should(
@@ -25,6 +34,10 @@ describe(
           'be.empty',
         ),
       )
+    })
+
+    it('by attribute (greaterThan)', () => {
+      cy.visit('cypress/integration/duplicates/index.html')
 
       // using a few more shortcuts
       cy.get('li').should(
@@ -32,6 +45,28 @@ describe(
           map(invoke('getAttribute', 'data-product-id')),
           countBy,
           (counts) => pickBy(counts, greaterThan(1)),
+          tap(console.log),
+          'be.empty',
+        ),
+      )
+    })
+
+    it('by attribute (flip arguments and partial apply)', () => {
+      cy.visit('cypress/integration/duplicates/index.html')
+      // modify the _.pickBy to take arguments in
+      // the flipped order: (fn, array)
+      // then we know the first argument - greaterThan(1) function
+      // so we apply it right away. The returned function
+      // is waiting for the object
+      const pickLargerThanOne = partial(
+        flipTwoArguments(pickBy),
+        greaterThan(1),
+      )
+      cy.get('li').should(
+        really(
+          map(invoke('getAttribute', 'data-product-id')),
+          countBy,
+          pickLargerThanOne,
           tap(console.log),
           'be.empty',
         ),
