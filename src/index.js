@@ -97,6 +97,19 @@ function its(path) {
 }
 
 /**
+ * Curried > N function
+ * @param {number} n
+ * @returns Boolean
+ * @example
+ *  expect(greaterThan(10)(5)).to.be.false
+ */
+function greaterThan(n) {
+  return function (x) {
+    return x > n
+  }
+}
+
+/**
  * Converts the given string into a JavaScript Date object
  * @param {String} s dateString
  * @returns {Date} Date instance
@@ -128,4 +141,5 @@ module.exports = {
   pipe,
   toDate,
   tap,
+  greaterThan,
 }
