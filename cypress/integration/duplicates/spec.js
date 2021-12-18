@@ -30,6 +30,8 @@ describe(
           map(invoke('getAttribute', 'data-product-id')),
           countBy,
           (counts) => pickBy(counts, (n) => n > 1),
+          // if you want to debug this pipeline of functions
+          // use tap(console.log) function
           tap(console.log),
           'be.empty',
         ),
@@ -45,7 +47,6 @@ describe(
           map(invoke('getAttribute', 'data-product-id')),
           countBy,
           (counts) => pickBy(counts, greaterThan(1)),
-          tap(console.log),
           'be.empty',
         ),
       )
@@ -67,7 +68,6 @@ describe(
           map(invoke('getAttribute', 'data-product-id')),
           countBy,
           pickLargerThanOne,
-          tap(console.log),
           'be.empty',
         ),
       )
