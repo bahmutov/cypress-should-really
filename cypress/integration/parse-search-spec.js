@@ -12,10 +12,11 @@ it(
       .should('equal', '?foo=bar&baz=qux')
       .and(
         really(
-          construct(URLSearchParams),
-          invoke('entries'),
-          Array.from,
-          Cypress._.fromPairs,
+          // string like "?foo=bar&baz=qux"
+          construct(URLSearchParams), // URLSearchParams
+          invoke('entries'), // Iterable<[string, string]>
+          Array.from, // Array<[string, string]>
+          Cypress._.fromPairs, // { [key: string]: string }
           'deep.equal',
           {
             foo: 'bar',
