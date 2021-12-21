@@ -52,7 +52,8 @@ $ yarn add -D cypress-should-really
 
 - `map`
 - `invoke`
-- `toDate`
+- `constructor`
+- `toDate` (deprecated) use `constructor(Date)` instead
 - `its`
 - `greaterThan`
 - `flipTwoArguments`
@@ -76,6 +77,16 @@ invoke('add', 1, 2)(calc)
 ```
 
 See [invoke-spec.js](./cypress/integration/invoke-spec.js)
+
+## constructor
+
+Takes a constructor function, returns a function that waits for a single argument and calls with the `new` keyword.
+
+```js
+import {constructor} from 'cypress-should-really'
+// converts a string to Date object
+.then(constructor(Date))
+```
 
 ## tap
 

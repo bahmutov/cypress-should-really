@@ -1,6 +1,10 @@
 /// <reference types="cypress" />
 
 function really() {
+  if (!arguments.length) {
+    throw new Error('really() needs arguments really badly')
+  }
+
   const fns = Cypress._.takeWhile(arguments, (arg) => typeof arg === 'function')
   const chainerIndex = Cypress._.findIndex(
     arguments,
@@ -127,6 +131,7 @@ function flipTwoArguments(fn) {
  * Converts the given string into a JavaScript Date object
  * @param {String} s dateString
  * @returns {Date} Date instance
+ * @deprecated Use "constructor(Date)" instead
  */
 function toDate(s) {
   return new Date(s)
@@ -159,10 +164,23 @@ function partial(fn, a) {
   return fn.bind(null, a)
 }
 
+/**
+ * Given a constructor function, returns a function
+ * that waits for a single argument before calling "new constructor(arg)"
+ * @example constructor(Date)
+ * @see https://glebbahmutov.com/blog/work-around-the-keyword-new-in-javascript/
+ */
+function construct(constructor) {
+  return function (arg) {
+    return new constructor(arg)
+  }
+}
+
 module.exports = {
   really,
   // utility functions
   map,
+  construct,
   invoke,
   its,
   pipe,
