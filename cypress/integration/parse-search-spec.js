@@ -1,6 +1,15 @@
 /// <reference types="cypress" />
 
-import { construct, invoke, really } from '../../src'
+import { construct, invoke, pipe, really } from '../../src'
+
+// reusable function for converting search params to an object
+const searchToPlain = pipe(
+  // string like "?foo=bar&baz=qux"
+  construct(URLSearchParams), // URLSearchParams
+  invoke('entries'), // Iterable<[string, string]>
+  Array.from, // Array<[string, string]>
+  Cypress._.fromPairs, // { [key: string]: string })
+)
 
 it(
   'parses the URL search part',
@@ -11,18 +20,10 @@ it(
     cy.location('search')
       .should('equal', '?foo=bar&baz=qux')
       .and(
-        really(
-          // string like "?foo=bar&baz=qux"
-          construct(URLSearchParams), // URLSearchParams
-          invoke('entries'), // Iterable<[string, string]>
-          Array.from, // Array<[string, string]>
-          Cypress._.fromPairs, // { [key: string]: string }
-          'deep.equal',
-          {
-            foo: 'bar',
-            baz: 'qux',
-          },
-        ),
+        really(searchToPlain, 'deep.equal', {
+          foo: 'bar',
+          baz: 'qux',
+        }),
       )
   },
 )
