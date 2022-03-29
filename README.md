@@ -1,4 +1,4 @@
-# cypress-should-really [![ci](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml) ![cypress version](https://img.shields.io/badge/cypress-9.5.2-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
+# cypress-should-really [![ci](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml) ![cypress version](https://img.shields.io/badge/cypress-9.5.3-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
 
 Read the blog posts [Functional Helpers For Cypress Tests](https://glebbahmutov.com/blog/fp-cy-helpers/) and [Check Items For Duplicates](https://glebbahmutov.com/blog/check-for-duplicates/)
 
