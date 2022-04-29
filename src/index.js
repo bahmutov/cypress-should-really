@@ -57,6 +57,22 @@ function map(fn) {
 }
 
 /**
+ * Filter the values by the given predicate function.
+ * @param {Function} predicate
+ */
+function filter(predicate) {
+  return function (list) {
+    if (Cypress._.isArrayLike(list)) {
+      const callbackFn =
+        typeof predicate === 'function' ? (x) => predicate(x) : predicate
+      return Cypress._.filter(list, callbackFn)
+    } else {
+      return predicate(list)
+    }
+  }
+}
+
+/**
  * Invokes the given name (with optional arguments) on the given object.
  * @param {String} methodName
  * @param  {...any} args
@@ -110,6 +126,16 @@ function its(path) {
 function greaterThan(n) {
   return function (x) {
     return x > n
+  }
+}
+
+/**
+ * Curried deep comparison
+ * @param {any} isEqual
+ */
+function isEqual(expectedValue) {
+  return function (actualValue) {
+    return Cypress._.isEqual(actualValue, expectedValue)
   }
 }
 
@@ -182,11 +208,13 @@ module.exports = {
   map,
   construct,
   invoke,
+  filter,
   its,
   pipe,
   toDate,
   tap,
   partial,
+  isEqual,
   greaterThan,
   flipTwoArguments,
 }

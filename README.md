@@ -60,6 +60,8 @@ $ yarn add -D cypress-should-really
 - `partial`
 - `pipe`
 - `tap`
+- `filter`
+- `isEqual`
 - `really`
 
 ## invoke
