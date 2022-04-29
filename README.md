@@ -109,6 +109,10 @@ In the above example, the `console.log` the string "Joe" multiple times, before 
 
 See [tap-spec.js](./cypress/integration/tap-spec.js)
 
+## Videos
+
+- [Filter Input Elements By Value Using cypress-should-really Plugin](https://youtu.be/Gxoo6uZMo9I)
+
 ## See also
 
 - [cypress-recurse](https://github.com/bahmutov/cypress-recurse)
