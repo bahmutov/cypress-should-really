@@ -28,7 +28,7 @@
     "chai-sorted": "0.2.0",
     "cypress": "9.7.0",
     "prettier": "2.6.2",
-    "semantic-release": "19.0.2",
+    "semantic-release": "19.0.3",
     "stop-only": "3.1.2"
   }
 }
