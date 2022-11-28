@@ -6,7 +6,7 @@ chai.use(require('chai-sorted'))
 
 describe('Assertion helpers', () => {
   beforeEach(() => {
-    cy.visit('/cypress/integration/table')
+    cy.visit('/cypress/e2e/table')
     cy.get('#numrows').select('100')
     // check if the table fits into one page
     cy.get('.pagecontroller-num').should('have.length', 1)

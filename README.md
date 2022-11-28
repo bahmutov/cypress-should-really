@@ -78,7 +78,7 @@ invoke('add', 1, 2)(calc)
 // 3
 ```
 
-See [invoke-spec.js](./cypress/integration/invoke-spec.js)
+See [invoke-spec.js](./cypress/e2e/invoke-spec.js)
 
 ## constructor
 
@@ -107,7 +107,7 @@ setTimeout(() => {
 
 In the above example, the `console.log` the string "Joe" multiple times, before logging "Mary" once and passing the test.
 
-See [tap-spec.js](./cypress/integration/tap-spec.js)
+See [tap-spec.js](./cypress/e2e/tap-spec.js)
 
 ## Videos
 
