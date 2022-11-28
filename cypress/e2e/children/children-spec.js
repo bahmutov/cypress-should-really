@@ -1,5 +1,4 @@
-/// <reference types="cypress" />
-import { really, map, invoke, toDate } from '../../..'
+import { really, invoke } from '../../..'
 
 describe(
   'count children elements',
