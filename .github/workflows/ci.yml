@@ -11,7 +11,7 @@ jobs:
         # https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v4
         with:
-          build: npm run stop-only
+          build: npm run stop-only && npm run build
 
       - name: Semantic Release 🚀
         uses: cycjimmy/semantic-release-action@v3

@@ -2,14 +2,19 @@
   "name": "cypress-should-really",
   "version": "0.0.0-development",
   "description": "Functional helpers for constructing Cypress should callbacks",
-  "main": "src",
+  "main": "dist",
+  "types": "dist/index.d.ts",
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
   "scripts": {
     "test": "cypress run",
     "semantic-release": "semantic-release",
-    "stop-only": "stop-only --folder cypress/e2e"
+    "stop-only": "stop-only --folder cypress/e2e",
+    "build": "tsc -b",
+    "watch": "tsc -w",
+    "lint": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -29,6 +34,7 @@
     "cypress": "^11.2.0",
     "prettier": "2.7.1",
     "semantic-release": "19.0.5",
-    "stop-only": "3.1.2"
+    "stop-only": "3.1.2",
+    "typescript": "^4.9.3"
   }
 }

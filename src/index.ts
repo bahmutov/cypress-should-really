@@ -18,11 +18,11 @@ function really() {
   const chainers = chainer.split('.')
   const fn = pipe(...fns)
 
-  return function (value) {
+  return function (value: unknown) {
     // console.log('value', value)
     const transformed = fn(value)
     // console.log('transformed', transformed)
-    return chainers.reduce((acc, chainer) => {
+    return chainers.reduce((acc: any, chainer: string) => {
       const currentChainer = acc[chainer]
       if (typeof currentChainer === 'function') {
         return acc[chainer](...chainerArguments)
@@ -33,8 +33,8 @@ function really() {
   }
 }
 
-function pipe(...fns) {
-  return function (value) {
+function pipe(...fns: Function[]) {
+  return function (value: unknown) {
     return fns.reduce((acc, fn) => fn(acc), value)
   }
 }
@@ -45,10 +45,10 @@ function pipe(...fns) {
  * @returns {Object|Array} Transformed value
  * @example cy.get('.todo').then(map('innerText'))
  */
-function map(fn) {
-  return function (list) {
+function map(fn: Function) {
+  return function (list: unknown) {
     if (Cypress._.isArrayLike(list)) {
-      const callbackFn = typeof fn === 'function' ? (x) => fn(x) : fn
+      const callbackFn = typeof fn === 'function' ? (x: unknown) => fn(x) : fn
       return Cypress._.map(list, callbackFn)
     } else {
       return fn(list)
@@ -60,11 +60,13 @@ function map(fn) {
  * Filter the values by the given predicate function.
  * @param {Function} predicate
  */
-function filter(predicate) {
-  return function (list) {
+function filter(predicate: Function) {
+  return function (list: unknown) {
     if (Cypress._.isArrayLike(list)) {
       const callbackFn =
-        typeof predicate === 'function' ? (x) => predicate(x) : predicate
+        typeof predicate === 'function'
+          ? (x: unknown) => predicate(x)
+          : predicate
       return Cypress._.filter(list, callbackFn)
     } else {
       return predicate(list)
@@ -83,15 +85,17 @@ function filter(predicate) {
  *    .then(toDate)
  *    .then(invoke('getTime'))
  */
-function invoke(methodName, ...args) {
-  return function (list) {
+function invoke(methodName: string, ...args: unknown[]) {
+  return function (list: unknown | unknown[]) {
     if (arguments.length > 1) {
       // the user tried to pass extra arguments with the list/object
       // that is a mistake!
       throw new Error(`Call to "${methodName}" must have a single argument`)
     }
 
+    // @ts-ignore
     if (typeof list[methodName] === 'function') {
+      // @ts-ignore
       return list[methodName](...args)
     }
 
@@ -110,8 +114,8 @@ function invoke(methodName, ...args) {
  * @example
  *  cy.wrap({ foo: 'bar' }).then(its('foo'))
  */
-function its(path) {
-  return function (o) {
+function its(path: string) {
+  return function (o: object) {
     return Cypress._.property(path)(o)
   }
 }
@@ -123,8 +127,8 @@ function its(path) {
  * @example
  *  expect(greaterThan(10)(5)).to.be.false
  */
-function greaterThan(n) {
-  return function (x) {
+function greaterThan(n: number) {
+  return function (x: number) {
     return x > n
   }
 }
@@ -133,8 +137,8 @@ function greaterThan(n) {
  * Curried deep comparison
  * @param {any} isEqual
  */
-function isEqual(expectedValue) {
-  return function (actualValue) {
+function isEqual(expectedValue: any) {
+  return function (actualValue: any) {
     return Cypress._.isEqual(actualValue, expectedValue)
   }
 }
@@ -147,8 +151,8 @@ function isEqual(expectedValue) {
  * @example
  *  flipTwoArguments(Cypress._.map)(x => x * 2, [1, 2, 3])
  */
-function flipTwoArguments(fn) {
-  return function (a, b) {
+function flipTwoArguments(fn: Function) {
+  return function (a: unknown, b: unknown) {
     return fn(b, a)
   }
 }
@@ -159,7 +163,7 @@ function flipTwoArguments(fn) {
  * @returns {Date} Date instance
  * @deprecated Use "constructor(Date)" instead
  */
-function toDate(s) {
+function toDate(s: string) {
   return new Date(s)
 }
 
@@ -170,8 +174,8 @@ function toDate(s) {
  * @param {Function} fn
  * @example cyw.wrap(1).then(tap(console.log)).should('equal', 1)
  */
-function tap(fn) {
-  return function (x) {
+function tap(fn: Function) {
+  return function (x: unknown) {
     fn(x)
     return x
   }
@@ -186,7 +190,7 @@ function tap(fn) {
  *  const addOne = partial(add, 1)
  *  addOne(2) // 3
  */
-function partial(fn, a) {
+function partial(fn: Function, a: unknown) {
   return fn.bind(null, a)
 }
 
@@ -196,8 +200,9 @@ function partial(fn, a) {
  * @example constructor(Date)
  * @see https://glebbahmutov.com/blog/work-around-the-keyword-new-in-javascript/
  */
-function construct(constructor) {
-  return function (arg) {
+function construct(constructor: Function) {
+  return function (arg: unknown) {
+    // @ts-ignore
     return new constructor(arg)
   }
 }
