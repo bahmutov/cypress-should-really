@@ -1,5 +1,14 @@
 "use strict";
 /// <reference types="cypress" />
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.construct = exports.partial = exports.tap = exports.toDate = exports.flipTwoArguments = exports.isEqual = exports.greaterThan = exports.its = exports.invoke = exports.filter = exports.map = exports.pipe = exports.really = void 0;
+/**
+ * Constructs a "should(callback)" function on the fly from a pipeline
+ * of individual functions to be called
+ * @example cy.get(...).should(really(...))
+ * @see https://github.com/bahmutov/cypress-should-really
+ * @returns Function
+ */
 function really() {
     if (!arguments.length) {
         throw new Error('really() needs arguments really badly');
@@ -28,11 +37,13 @@ function really() {
         }, expect(transformed).to);
     };
 }
+exports.really = really;
 function pipe(...fns) {
     return function (value) {
         return fns.reduce((acc, fn) => fn(acc), value);
     };
 }
+exports.pipe = pipe;
 /**
  * Transforms an object or a list of objects using the supplied function or name of the property.
  * @param {Function} fn Function to apply to each object
@@ -50,6 +61,7 @@ function map(fn) {
         }
     };
 }
+exports.map = map;
 /**
  * Filter the values by the given predicate function.
  * @param {Function} predicate
@@ -67,6 +79,7 @@ function filter(predicate) {
         }
     };
 }
+exports.filter = filter;
 /**
  * Invokes the given name (with optional arguments) on the given object.
  * @param {String} methodName
@@ -98,6 +111,7 @@ function invoke(methodName, ...args) {
         }
     };
 }
+exports.invoke = invoke;
 /**
  * Grabs a property or a nested path from the given object.
  * @param {String} path
@@ -110,6 +124,7 @@ function its(path) {
         return Cypress._.property(path)(o);
     };
 }
+exports.its = its;
 /**
  * Curried > N function
  * @param {number} n
@@ -122,6 +137,7 @@ function greaterThan(n) {
         return x > n;
     };
 }
+exports.greaterThan = greaterThan;
 /**
  * Curried deep comparison
  * @param {any} isEqual
@@ -131,6 +147,7 @@ function isEqual(expectedValue) {
         return Cypress._.isEqual(actualValue, expectedValue);
     };
 }
+exports.isEqual = isEqual;
 /**
  * Takes a function and returns a function that expects the first two
  * arguments in the reverse order.
@@ -144,6 +161,7 @@ function flipTwoArguments(fn) {
         return fn(b, a);
     };
 }
+exports.flipTwoArguments = flipTwoArguments;
 /**
  * Converts the given string into a JavaScript Date object
  * @param {String} s dateString
@@ -153,6 +171,7 @@ function flipTwoArguments(fn) {
 function toDate(s) {
     return new Date(s);
 }
+exports.toDate = toDate;
 /**
  * Returns a function that waits for the argument, passes that argument
  * to the given callback, but returns the original value. Useful
@@ -166,6 +185,7 @@ function tap(fn) {
         return x;
     };
 }
+exports.tap = tap;
 /**
  * Returns a function with the first argument bound.
  * @param {Function} fn Function to partially apply
@@ -178,6 +198,7 @@ function tap(fn) {
 function partial(fn, a) {
     return fn.bind(null, a);
 }
+exports.partial = partial;
 /**
  * Given a constructor function, returns a function
  * that waits for a single argument before calling "new constructor(arg)"
@@ -190,19 +211,4 @@ function construct(constructor) {
         return new constructor(arg);
     };
 }
-module.exports = {
-    really,
-    // utility functions
-    map,
-    construct,
-    invoke,
-    filter,
-    its,
-    pipe,
-    toDate,
-    tap,
-    partial,
-    isEqual,
-    greaterThan,
-    flipTwoArguments,
-};
+exports.construct = construct;
