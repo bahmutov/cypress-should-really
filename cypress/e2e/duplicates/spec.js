@@ -23,7 +23,7 @@ describe(
     })
 
     it('by attribute (explicit)', () => {
-      cy.visit('cypress/integration/duplicates/index.html')
+      cy.visit('cypress/e2e/duplicates/index.html')
 
       cy.get('li').should(
         really(
@@ -39,7 +39,7 @@ describe(
     })
 
     it('by attribute (greaterThan)', () => {
-      cy.visit('cypress/integration/duplicates/index.html')
+      cy.visit('cypress/e2e/duplicates/index.html')
 
       // using a few more shortcuts
       cy.get('li').should(
@@ -53,7 +53,7 @@ describe(
     })
 
     it('by attribute (flip arguments and partial apply)', () => {
-      cy.visit('cypress/integration/duplicates/index.html')
+      cy.visit('cypress/e2e/duplicates/index.html')
       // modify the _.pickBy to take arguments in
       // the flipped order: (fn, array)
       // then we know the first argument - greaterThan(1) function
