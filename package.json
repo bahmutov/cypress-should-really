@@ -9,7 +9,7 @@
   "scripts": {
     "test": "cypress run",
     "semantic-release": "semantic-release",
-    "stop-only": "stop-only --folder cypress/integration"
+    "stop-only": "stop-only --folder cypress/e2e"
   },
   "repository": {
     "type": "git",
