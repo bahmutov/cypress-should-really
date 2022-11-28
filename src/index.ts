@@ -1,6 +1,13 @@
 /// <reference types="cypress" />
 
-function really() {
+/**
+ * Constructs a "should(callback)" function on the fly from a pipeline
+ * of individual functions to be called
+ * @example cy.get(...).should(really(...))
+ * @see https://github.com/bahmutov/cypress-should-really
+ * @returns Function
+ */
+export function really() {
   if (!arguments.length) {
     throw new Error('really() needs arguments really badly')
   }
@@ -33,7 +40,7 @@ function really() {
   }
 }
 
-function pipe(...fns: Function[]) {
+export function pipe(...fns: Function[]) {
   return function (value: unknown) {
     return fns.reduce((acc, fn) => fn(acc), value)
   }
@@ -45,7 +52,7 @@ function pipe(...fns: Function[]) {
  * @returns {Object|Array} Transformed value
  * @example cy.get('.todo').then(map('innerText'))
  */
-function map(fn: Function) {
+export function map(fn: Function) {
   return function (list: unknown) {
     if (Cypress._.isArrayLike(list)) {
       const callbackFn = typeof fn === 'function' ? (x: unknown) => fn(x) : fn
@@ -60,7 +67,7 @@ function map(fn: Function) {
  * Filter the values by the given predicate function.
  * @param {Function} predicate
  */
-function filter(predicate: Function) {
+export function filter(predicate: Function) {
   return function (list: unknown) {
     if (Cypress._.isArrayLike(list)) {
       const callbackFn =
@@ -85,7 +92,7 @@ function filter(predicate: Function) {
  *    .then(toDate)
  *    .then(invoke('getTime'))
  */
-function invoke(methodName: string, ...args: unknown[]) {
+export function invoke(methodName: string, ...args: unknown[]) {
   return function (list: unknown | unknown[]) {
     if (arguments.length > 1) {
       // the user tried to pass extra arguments with the list/object
@@ -114,7 +121,7 @@ function invoke(methodName: string, ...args: unknown[]) {
  * @example
  *  cy.wrap({ foo: 'bar' }).then(its('foo'))
  */
-function its(path: string) {
+export function its(path: string) {
   return function (o: object) {
     return Cypress._.property(path)(o)
   }
@@ -127,7 +134,7 @@ function its(path: string) {
  * @example
  *  expect(greaterThan(10)(5)).to.be.false
  */
-function greaterThan(n: number) {
+export function greaterThan(n: number) {
   return function (x: number) {
     return x > n
   }
@@ -137,7 +144,7 @@ function greaterThan(n: number) {
  * Curried deep comparison
  * @param {any} isEqual
  */
-function isEqual(expectedValue: any) {
+export function isEqual(expectedValue: any) {
   return function (actualValue: any) {
     return Cypress._.isEqual(actualValue, expectedValue)
   }
@@ -151,7 +158,7 @@ function isEqual(expectedValue: any) {
  * @example
  *  flipTwoArguments(Cypress._.map)(x => x * 2, [1, 2, 3])
  */
-function flipTwoArguments(fn: Function) {
+export function flipTwoArguments(fn: Function) {
   return function (a: unknown, b: unknown) {
     return fn(b, a)
   }
@@ -163,7 +170,7 @@ function flipTwoArguments(fn: Function) {
  * @returns {Date} Date instance
  * @deprecated Use "constructor(Date)" instead
  */
-function toDate(s: string) {
+export function toDate(s: string) {
   return new Date(s)
 }
 
@@ -174,7 +181,7 @@ function toDate(s: string) {
  * @param {Function} fn
  * @example cyw.wrap(1).then(tap(console.log)).should('equal', 1)
  */
-function tap(fn: Function) {
+export function tap(fn: Function) {
   return function (x: unknown) {
     fn(x)
     return x
@@ -190,7 +197,7 @@ function tap(fn: Function) {
  *  const addOne = partial(add, 1)
  *  addOne(2) // 3
  */
-function partial(fn: Function, a: unknown) {
+export function partial(fn: Function, a: unknown) {
   return fn.bind(null, a)
 }
 
@@ -200,26 +207,9 @@ function partial(fn: Function, a: unknown) {
  * @example constructor(Date)
  * @see https://glebbahmutov.com/blog/work-around-the-keyword-new-in-javascript/
  */
-function construct(constructor: Function) {
+export function construct(constructor: Function) {
   return function (arg: unknown) {
     // @ts-ignore
     return new constructor(arg)
   }
-}
-
-module.exports = {
-  really,
-  // utility functions
-  map,
-  construct,
-  invoke,
-  filter,
-  its,
-  pipe,
-  toDate,
-  tap,
-  partial,
-  isEqual,
-  greaterThan,
-  flipTwoArguments,
 }
