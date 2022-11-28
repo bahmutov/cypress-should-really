@@ -1,37 +1,4 @@
 /**
- * Constructs a "should(callback)" function on the fly from a pipeline
- * of individual functions to be called
- * @example cy.get(...).should(really(...))
- * @see https://github.com/bahmutov/cypress-should-really
- * @returns Function
- */
-export declare function really(): (value: unknown) => any;
-export declare function pipe(...fns: Function[]): (value: unknown) => unknown;
-/**
- * Transforms an object or a list of objects using the supplied function or name of the property.
- * @param {Function} fn Function to apply to each object
- * @returns {Object|Array} Transformed value
- * @example cy.get('.todo').then(map('innerText'))
- */
-export declare function map(fn: Function): (list: unknown) => any;
-/**
- * Filter the values by the given predicate function.
- * @param {Function} predicate
- */
-export declare function filter(predicate: Function): (list: unknown) => any;
-/**
- * Invokes the given name (with optional arguments) on the given object.
- * @param {String} methodName
- * @param  {...any} args
- * @returns Result of the method invocation
- * @example
- *  cy.get('dates')
- *    .then(map('innerText'))
- *    .then(toDate)
- *    .then(invoke('getTime'))
- */
-export declare function invoke(methodName: string, ...args: unknown[]): (list: unknown | unknown[]) => any;
-/**
  * Grabs a property or a nested path from the given object.
  * @param {String} path
  * @returns Value of the property
@@ -93,4 +60,9 @@ export declare function partial(fn: Function, a: unknown): any;
  * @see https://glebbahmutov.com/blog/work-around-the-keyword-new-in-javascript/
  */
 export declare function construct(constructor: Function): (arg: unknown) => any;
+export * from './pipe';
+export * from './really';
+export * from './map';
+export * from './filter';
+export * from './invoke';
 //# sourceMappingURL=index.d.ts.map

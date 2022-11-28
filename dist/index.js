@@ -1,117 +1,21 @@
 "use strict";
 /// <reference types="cypress" />
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.construct = exports.partial = exports.tap = exports.toDate = exports.flipTwoArguments = exports.isEqual = exports.greaterThan = exports.its = exports.invoke = exports.filter = exports.map = exports.pipe = exports.really = void 0;
-/**
- * Constructs a "should(callback)" function on the fly from a pipeline
- * of individual functions to be called
- * @example cy.get(...).should(really(...))
- * @see https://github.com/bahmutov/cypress-should-really
- * @returns Function
- */
-function really() {
-    if (!arguments.length) {
-        throw new Error('really() needs arguments really badly');
-    }
-    const fns = Cypress._.takeWhile(arguments, (arg) => typeof arg === 'function');
-    const chainerIndex = Cypress._.findIndex(arguments, (arg) => typeof arg === 'string');
-    if (chainerIndex === -1) {
-        throw new Error('sh: no chainer found');
-    }
-    const chainer = arguments[chainerIndex];
-    const chainerArguments = Cypress._.slice(arguments, chainerIndex + 1);
-    const chainers = chainer.split('.');
-    const fn = pipe(...fns);
-    return function (value) {
-        // console.log('value', value)
-        const transformed = fn(value);
-        // console.log('transformed', transformed)
-        return chainers.reduce((acc, chainer) => {
-            const currentChainer = acc[chainer];
-            if (typeof currentChainer === 'function') {
-                return acc[chainer](...chainerArguments);
-            }
-            else {
-                return acc[chainer];
-            }
-        }, expect(transformed).to);
-    };
-}
-exports.really = really;
-function pipe(...fns) {
-    return function (value) {
-        return fns.reduce((acc, fn) => fn(acc), value);
-    };
-}
-exports.pipe = pipe;
-/**
- * Transforms an object or a list of objects using the supplied function or name of the property.
- * @param {Function} fn Function to apply to each object
- * @returns {Object|Array} Transformed value
- * @example cy.get('.todo').then(map('innerText'))
- */
-function map(fn) {
-    return function (list) {
-        if (Cypress._.isArrayLike(list)) {
-            const callbackFn = typeof fn === 'function' ? (x) => fn(x) : fn;
-            return Cypress._.map(list, callbackFn);
-        }
-        else {
-            return fn(list);
-        }
-    };
-}
-exports.map = map;
-/**
- * Filter the values by the given predicate function.
- * @param {Function} predicate
- */
-function filter(predicate) {
-    return function (list) {
-        if (Cypress._.isArrayLike(list)) {
-            const callbackFn = typeof predicate === 'function'
-                ? (x) => predicate(x)
-                : predicate;
-            return Cypress._.filter(list, callbackFn);
-        }
-        else {
-            return predicate(list);
-        }
-    };
-}
-exports.filter = filter;
-/**
- * Invokes the given name (with optional arguments) on the given object.
- * @param {String} methodName
- * @param  {...any} args
- * @returns Result of the method invocation
- * @example
- *  cy.get('dates')
- *    .then(map('innerText'))
- *    .then(toDate)
- *    .then(invoke('getTime'))
- */
-function invoke(methodName, ...args) {
-    return function (list) {
-        if (arguments.length > 1) {
-            // the user tried to pass extra arguments with the list/object
-            // that is a mistake!
-            throw new Error(`Call to "${methodName}" must have a single argument`);
-        }
-        // @ts-ignore
-        if (typeof list[methodName] === 'function') {
-            // @ts-ignore
-            return list[methodName](...args);
-        }
-        if (Cypress._.isArrayLike(list)) {
-            return Cypress._.invokeMap(list, methodName, ...args);
-        }
-        else {
-            return Cypress._.invoke(list, methodName, ...args);
-        }
-    };
-}
-exports.invoke = invoke;
+exports.construct = exports.partial = exports.tap = exports.toDate = exports.flipTwoArguments = exports.isEqual = exports.greaterThan = exports.its = void 0;
 /**
  * Grabs a property or a nested path from the given object.
  * @param {String} path
@@ -212,3 +116,8 @@ function construct(constructor) {
     };
 }
 exports.construct = construct;
+__exportStar(require("./pipe"), exports);
+__exportStar(require("./really"), exports);
+__exportStar(require("./map"), exports);
+__exportStar(require("./filter"), exports);
+__exportStar(require("./invoke"), exports);
