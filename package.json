@@ -32,7 +32,7 @@
   "devDependencies": {
     "chai-sorted": "0.2.0",
     "cypress": "^12.0.0",
-    "prettier": "2.8.0",
+    "prettier": "2.8.1",
     "semantic-release": "19.0.5",
     "stop-only": "3.1.2",
     "typescript": "^4.9.3"
