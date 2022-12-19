@@ -5,7 +5,7 @@ import { really, invoke, its } from '../../..'
 // implementation similar to "Json data attribute" recipe
 // from https://glebbahmutov.com/cypress-examples
 
-it('by attribute (explicit)', () => {
+it('gets the parsed data attribute value', () => {
   cy.visit('cypress/e2e/json-attribute/index.html')
   // grab the element's attribute "data-field"
   // convert it into a JSON object
