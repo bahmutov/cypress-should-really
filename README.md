@@ -1,6 +1,6 @@
 # cypress-should-really [![ci](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/bahmutov/cypress-should-really/actions/workflows/ci.yml) ![cypress version](https://img.shields.io/badge/cypress-12.1.0-brightgreen) [![renovate-app badge][renovate-badge]][renovate-app]
 
-Read the blog posts [Functional Helpers For Cypress Tests](https://glebbahmutov.com/blog/fp-cy-helpers/) and [Check Items For Duplicates](https://glebbahmutov.com/blog/check-for-duplicates/)
+Read the blog posts [Functional Helpers For Cypress Tests](https://glebbahmutov.com/blog/fp-cy-helpers/) and [Check Items For Duplicates](https://glebbahmutov.com/blog/check-for-duplicates/). 🎓 Covered in my course [Cypress Plugins](https://cypress.tips/courses/cypress-plugins).
 
 ## Example
 
@@ -116,6 +116,7 @@ See [tap-spec.js](./cypress/e2e/tap-spec.js)
 ## See also
 
 - [cypress-recurse](https://github.com/bahmutov/cypress-recurse)
+- [cypress-map](https://github.com/bahmutov/cypress-map) for Cypress v12+
 
 ## Small print
 
